@@ -12,7 +12,7 @@
       <swiper-slide>
         <img
           :src="
-            require('/Users/pc/furniture-store-vue/server/static/bigSize/' +
+            require('/Users/pc/Documents/MyData/MyProjects/fullstack_store/server/static/bigSize/' +
               image)
           "
           alt=""
@@ -45,7 +45,7 @@
       <swiper-slide>
         <img
           :src="
-            require('/Users/pc/furniture-store-vue/server/static/bigSize/' +
+            require('/Users/pc/Documents/MyData/MyProjects/fullstack_store/server/static/bigSize/' +
               image)
           "
           alt=""

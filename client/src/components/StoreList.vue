@@ -9,7 +9,7 @@
           <div class="products-info">
             <img
               :src="
-                require('/Users/pc/furniture-store-vue/server/static/' +
+                require('/Users/pc/Documents/MyData/MyProjects/fullstack_store/server/static/' +
                   item.picture)
               "
               alt=""
