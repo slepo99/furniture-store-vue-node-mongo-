@@ -1,0 +1,5 @@
+const mockData = {
+    text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Arcu vitae elementum curabitur vitae. Pellentesque sit amet porttitor eget dolor morbi non arcu. Elementum facilisis leo vel fringilla est ullamcorper eget nulla facilisi. Pharetra pharetra massa massa ultricies mi quis hendrerit dolor. Tempus imperdiet nulla malesuada pellentesque elit eget gravida cum sociis. Proin libero nunc consequat interdum. Metus vulputate eu scelerisque felis imperdiet. Convallis a cras semper auctor. Ipsum consequat nisl vel pretium lectus. Auctor elit sed vulputate mi sit amet mauris commodo quis. Magna fringilla urna porttitor rhoncus dolor purus non enim. Placerat vestibulum lectus mauris ultrices eros in cursus turpis massa. Diam volutpat commodo sed egestas egestas fringilla phasellus.',
+    rating: 0
+}
+export default  mockData
