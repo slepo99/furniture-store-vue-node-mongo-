@@ -1,42 +1,202 @@
 <template>
-    <div>
+  <div>
+    <div v-if="!cartProducts.length">
+      <p class="product-empty">Cart is empty, please add something from the <router-link class="product-empty_link" :to="'/store'">store</router-link></p>
+    </div>
+    <div v-else>
       <div v-for="(item, id) in cartProducts" :key="id">
-        <div class="product">
-            <p> name{{item.name}}</p>
-            <p> quantity{{item.quantity}}</p>
+      <div class="product">
+        <div class="product_image-box">
+          <router-link :to="{ name: 'product', params: { id: item._id } }">
+            <img
+              class="product_image"
+              :src="require(`@/../../server/static/` + item.picture)"
+              alt="furniture"
+            />
+          </router-link>
+        </div>
+        <div class="product_name-type">
+          <div class="product_type-box">
+            <p class="product_type">{{ item.type }}</p>
+          </div>
+          <div class="product_name-box">
+            <p class="product_name">{{ item.name }}</p>
+          </div>
+        </div>
+
+        <div class="product_quantity-box">
+          <p class="product_quantity-text">quantity:</p>
+          <p class="product_quantity">{{ item.quantity }}</p>
+        </div>
+        <div class="product_total">
+          <p class="product_total-text">total price:</p>
+          <p class="product_total-price">
+            ${{ getTotalPrice(item.price, item.quantity) }}
+          </p>
+        </div>
+        <div class="product_delete">
+          <span @click="removeProduct(id)" class="material-symbols-outlined product_delete-button"> delete </span>
         </div>
       </div>
     </div>
-  </template>
-  
-  <script>
-  import { mapGetters, mapState } from 'vuex';
-  export default {
-  name: 'cart-items',
+    </div>
+    
+  </div>
+</template>
+
+<script>
+import { mapGetters, mapMutations, mapState } from "vuex";
+export default {
+  name: "cart-items",
   data() {
     return {
-        cart: null
-    }
+      cart: null,
+    };
   },
   computed: {
-    //   ...mapGetters({
-    //       cartProducts: 'cart/cartProducts'
-    //   }),
-      ...mapState({
-        cartProducts: (state) => state.cart.cartProducts
-      })
+    ...mapState({
+      cartProducts: (state) => state.cart.cartProducts,
+    }),
   },
+  methods: {
+    ...mapMutations({
+      deleteProduct: "cart/deleteProduct",
+    }),
+    getTotalPrice(price, quantity) {
+      return price * quantity;
+    },
+    removeProduct(index) {
+      this.deleteProduct(index);
+    },
+  },
+};
+</script>
 
+<style scoped lang="scss">
+.product {
+  display: flex;
+  min-width: 1280px;
+  height: 180px;
+  background: #f2f2f2;
+  margin: 15px 0 15px 0;
+  border-radius: 15px;
+  align-items: center;
+  flex-direction: row;
+  gap: 60px;
 
+  &_image-box {
+    margin: 10px 0 0 30px;
+    width: 200px;
   }
-  </script>
-  
-  <style scoped lang="scss">
-  .product {
+  &_image {
+    max-height: 130px;
+    border-radius: 15px;
+  }
+  &_type {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 23px;
     display: flex;
-    min-width: 1280px;
-    height: 100px;
-    background-color: rgb(203, 201, 201);
+    align-items: center;
+    text-transform: capitalize;
   }
-  
-  </style>
+  &_name-type {
+    display: flex;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 160px;
+  }
+  &_name {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 19px;
+    display: flex;
+    align-items: center;
+    text-transform: capitalize;
+    color: #000000;
+  }
+  &_quantity-box {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 200px;
+  }
+  &_quantity-text {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 23px;
+    display: flex;
+    align-items: center;
+    text-transform: capitalize;
+    text-align: center;
+  }
+  &_quantity {
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 23px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+  }
+  &_total {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 200px;
+  }
+  &_total-text {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 23px;
+    display: flex;
+    align-items: center;
+    text-transform: capitalize;
+    text-align: center;
+  }
+  &_total-price {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 26px;
+    text-transform: capitalize;
+    color: #842c68;
+  }
+  &_delete {
+    cursor: pointer;
+    margin-left: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    flex-direction: row;
+  }
+  &_delete-button {
+    height: 35px;
+    width: 35px;
+    font-size: 35px;
+  }
+  &_delete-button:active {
+    height: 45px;
+    width: 45;
+    font-size: 45px;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+  }
+  }
+ 
+  .product-empty {
+    font-size: 28px;
+    font-weight: 700px;
+    &_link {
+      color: black;
+    }
+  }
+</style>

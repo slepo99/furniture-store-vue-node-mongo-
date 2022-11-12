@@ -2,11 +2,12 @@
 
 ## Project server setup
 ```
+cd server
 npm install
 ```
 ### Run server
 ```
-npm run start
+npm run dev
 ```
 ### Go to client side
 ```
@@ -19,6 +20,10 @@ npm install
 ### Compiles and hot-reloads for development on client
 ```
 npm run serve
+```
+### Open and enjoy for application
+```
+go to http://localhost:8080/ in browser
 ```
 ### Compiles and minifies for production
 ```

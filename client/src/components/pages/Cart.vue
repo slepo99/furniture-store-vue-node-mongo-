@@ -16,6 +16,9 @@ import VueHeader from "@/components/UI/VueHeader.vue";
 export default {
   components: { CartItems, VueHeader, VueFooter },
   name: "cart",
+  mounted() {
+    window.scrollTo(0, top)
+   }
 };
 </script>
 

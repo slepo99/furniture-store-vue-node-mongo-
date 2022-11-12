@@ -31,6 +31,9 @@ import Scroll from "@/components/Scroll.vue";
 export default {
   name: "store",
   components: { VueFooter, VueHeader, StoreFilter, StoreList, Scroll },
+  mounted() {
+    window.scrollTo(0, top)
+  }
 };
 </script>
 

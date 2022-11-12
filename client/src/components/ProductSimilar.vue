@@ -8,7 +8,7 @@
         <div class="items_bloc">
           <img
             :src="
-              require('/Users/pc/Documents/MyData/MyProjects/fullstack_store/server/static/' +
+              require('@/../../server/static/' +
                 item.picture)
             "
             alt=""

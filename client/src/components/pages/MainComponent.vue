@@ -106,6 +106,9 @@ export default {
       openSearchFieldToStore: "headerProducts/openSearchFieldToStore",
     }),
   },
+  mounted() {
+    window.scrollTo(0, top)
+  }
 };
 </script>
 

@@ -108,6 +108,7 @@ export default {
   },
   mounted() {
     this.fetchProducts();
+    window.scrollTo(0, top)
   },
 };
 </script>

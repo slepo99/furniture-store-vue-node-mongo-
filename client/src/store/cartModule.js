@@ -16,7 +16,8 @@ export const cartModule = {
     },
     saveData(state) {
       return window.localStorage.setItem('cart', JSON.stringify(state.cartProducts))
-     }
+     },
+     
   },
  
   mutations: {
@@ -41,9 +42,10 @@ export const cartModule = {
       } else {
         state.cartProducts.push(newProduct);
       }
-    
     },
-    
+    deleteProduct(state, index) {
+      return state.cartProducts.splice(index, 1)
+    }
   },
   actions: {
 
