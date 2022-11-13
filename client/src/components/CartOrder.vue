@@ -10,17 +10,21 @@
         </div>
       </div>
       <div class="wrapper_total-price">
-        <p>price ${{ getTotalPrice() }}</p>
+        <p>total price ${{ getTotalPrice() }}</p>
       </div>
     </div>
-    <div>
-      <button>order now</button>
+    <div style="display: flex; justify-content: center">
+      <vue-button class="btn">
+        <p class="btn-text">order now</p>
+      </vue-button>
     </div>
   </div>
 </template>
 <script>
 import { mapGetters, mapMutations, mapState } from "vuex";
+import VueButton from "./UI/VueButton.vue";
 export default {
+  components: { VueButton },
   name: "cart-order",
   computed: {
     ...mapState({
@@ -44,8 +48,8 @@ export default {
 .product-order {
   background: #f2f2f2;
   min-width: 400px;
-  min-height: 400px;
-  max-height: 700px;
+  min-height: 100%;
+  max-height: 600px;
   border-radius: 12px;
   margin-top: 30px;
 }
@@ -77,15 +81,29 @@ export default {
   width: 250px;
 }
 .wrapper_list-name p {
-    font-style: normal;
-    font-weight: 700;
-    font-size: 18px;
-    line-height: 23px;
-    display: flex;
-    align-items: center;
-    text-transform: capitalize;
-  }
-  .wrapper_total-price {
-    
-  }
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 23px;
+  display: flex;
+  align-items: center;
+  text-transform: capitalize;
+}
+.wrapper_total-price {
+  font-style: normal;
+  font-weight: 900;
+  font-size: 22px;
+  line-height: 23px;
+  display: flex;
+  align-items: center;
+  text-transform: capitalize;
+}
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.btn-text {
+  text-transform: capitalize;
+}
 </style>
