@@ -1,46 +1,56 @@
 <template>
   <div>
     <div v-if="!cartProducts.length">
-      <p class="product-empty">Cart is empty, please add something from the <router-link class="product-empty_link" :to="'/store'">store</router-link></p>
+      <p class="product-empty">
+        Cart is empty, please add something from the
+        <router-link class="product-empty_link" :to="'/store'"
+          >store</router-link>
+      </p>
     </div>
     <div v-else>
-      <div v-for="(item, id) in cartProducts" :key="id">
-      <div class="product">
-        <div class="product_image-box">
-          <router-link :to="{ name: 'product', params: { id: item._id } }">
-            <img
-              class="product_image"
-              :src="require(`@/../../server/static/` + item.picture)"
-              alt="furniture"
-            />
-          </router-link>
-        </div>
-        <div class="product_name-type">
-          <div class="product_type-box">
-            <p class="product_type">{{ item.type }}</p>
-          </div>
-          <div class="product_name-box">
-            <p class="product_name">{{ item.name }}</p>
-          </div>
-        </div>
+      <transition-group name="list" tag="p">
+        <div v-for="(item, id) in cartProducts" :key="id" class="list-item">
+          <div class="product">
+            <div class="product_image-box">
+              <router-link :to="{ name: 'product', params: { id: item._id } }">
+                <img
+                  class="product_image"
+                  :src="require(`@/../../server/static/` + item.picture)"
+                  alt="furniture"
+                />
+              </router-link>
+            </div>
+            <div class="product_name-type">
+              <div class="product_type-box">
+                <p class="product_type">{{ item.type }}</p>
+              </div>
+              <div class="product_name-box">
+                <p class="product_name">{{ item.name }}</p>
+              </div>
+            </div>
 
-        <div class="product_quantity-box">
-          <p class="product_quantity-text">quantity:</p>
-          <p class="product_quantity">{{ item.quantity }}</p>
+            <div class="product_quantity-box">
+              <p class="product_quantity-text">quantity:</p>
+              <p class="product_quantity">{{ item.quantity }}</p>
+            </div>
+            <div class="product_total">
+              <p class="product_total-text">total price:</p>
+              <p class="product_total-price">
+                ${{price(item.price, item.quantity) }}
+              </p>
+            </div>
+            <div class="product_delete">
+              <span
+                @click="removeProduct(id)"
+                class="material-symbols-outlined product_delete-button"
+              >
+                delete
+              </span>
+            </div>
+          </div>
         </div>
-        <div class="product_total">
-          <p class="product_total-text">total price:</p>
-          <p class="product_total-price">
-            ${{ getTotalPrice(item.price, item.quantity) }}
-          </p>
-        </div>
-        <div class="product_delete">
-          <span @click="removeProduct(id)" class="material-symbols-outlined product_delete-button"> delete </span>
-        </div>
-      </div>
+      </transition-group>
     </div>
-    </div>
-    
   </div>
 </template>
 
@@ -62,11 +72,11 @@ export default {
     ...mapMutations({
       deleteProduct: "cart/deleteProduct",
     }),
-    getTotalPrice(price, quantity) {
-      return price * quantity;
-    },
     removeProduct(index) {
       this.deleteProduct(index);
+    },
+    price(price, quantity) {
+     return price * quantity
     },
   },
 };
@@ -75,7 +85,7 @@ export default {
 <style scoped lang="scss">
 .product {
   display: flex;
-  min-width: 1280px;
+  width: 1100px;
   height: 180px;
   background: #f2f2f2;
   margin: 15px 0 15px 0;
@@ -169,7 +179,7 @@ export default {
   }
   &_delete {
     cursor: pointer;
-    margin-left: 50px;
+    
     display: flex;
     justify-content: center;
     align-items: center;
@@ -190,13 +200,26 @@ export default {
     align-content: center;
     justify-content: center;
   }
+}
+
+.product-empty {
+  font-size: 28px;
+  font-weight: 700px;
+  &_link {
+    color: black;
   }
- 
-  .product-empty {
-    font-size: 28px;
-    font-weight: 700px;
-    &_link {
-      color: black;
-    }
-  }
+}
+.list-item {
+  display: inline-block;
+  margin-right: 10px;
+}
+.list-enter-active,
+.list-leave-active {
+  transition: all 1s ease;
+}
+.list-enter-from,
+.list-leave-to {
+  opacity: 0;
+  transform: translateY(30px);
+}
 </style>

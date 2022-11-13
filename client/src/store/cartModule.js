@@ -3,23 +3,26 @@ export const cartModule = {
     return {
       cartProducts: [],
       productCount: "1",
+
     };
   },
- 
   getters: {
     cartProducts(state) {
       return state.cartProducts;
     },
-
     productCount(state) {
       return state.productCount;
     },
     saveData(state) {
       return window.localStorage.setItem('cart', JSON.stringify(state.cartProducts))
      },
-     
+     getTotalPrice(state) {
+      let data = state.cartProducts.reduce((acc, item) => 
+          (acc + parseInt(item.price) * item.quantity)
+      ,0) 
+      return data;
+    }
   },
- 
   mutations: {
     setProducts(state, cartProducts) {
       state.cartProducts = cartProducts;
@@ -45,13 +48,12 @@ export const cartModule = {
     },
     deleteProduct(state, index) {
       return state.cartProducts.splice(index, 1)
-    }
+    },
+   
+    
+    
   },
-  actions: {
 
-
-
-  },
   
   namespaced: true,
 };
