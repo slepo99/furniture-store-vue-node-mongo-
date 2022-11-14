@@ -32,7 +32,6 @@
     </div>
   </div>
 </template>
-
 <script>
 import { mapState, mapMutations, mapGetters } from "vuex";
 import SearchBar from "@/components/UI/SearchBar.vue";

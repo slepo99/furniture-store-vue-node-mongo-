@@ -47,11 +47,9 @@ export default {
 <style lang="scss" scoped>
 .product-order {
   background: #f2f2f2;
-  min-width: 400px;
-  min-height: 100%;
-  max-height: 600px;
   border-radius: 12px;
   margin-top: 30px;
+  max-width: 100%;
 }
 .product {
   display: flex;
@@ -63,6 +61,7 @@ export default {
   align-items: center;
   flex-direction: row;
   gap: 15px;
+  padding: 0 50px 0 50px;
 }
 .wrapper_list-price {
   width: 70px;

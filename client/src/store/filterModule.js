@@ -79,6 +79,7 @@ export const filtersModule = {
         return data;
         
       },
+      //SO BAD CODE, WILL BE REFACTORED SOON :( 
       disableComfort(state, getters) {
         if (
           (state.categories.type.ancient ||
@@ -160,7 +161,7 @@ export const filtersModule = {
       products(state) {
         return state.products
       },
-
+      // --------------------------------->
       
       
   },
