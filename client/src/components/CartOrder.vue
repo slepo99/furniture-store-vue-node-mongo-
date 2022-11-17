@@ -48,8 +48,10 @@ export default {
 .product-order {
   background: #f2f2f2;
   border-radius: 12px;
-  margin-top: 30px;
+  margin: 30px 0 30px 0;
   max-width: 100%;
+  min-width: 435px;
+  height: fit-content;
 }
 .product {
   display: flex;
@@ -87,6 +89,7 @@ export default {
   display: flex;
   align-items: center;
   text-transform: capitalize;
+  text-align: start;
 }
 .wrapper_total-price {
   font-style: normal;
@@ -101,6 +104,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-bottom: 30px;
 }
 .btn-text {
   text-transform: capitalize;

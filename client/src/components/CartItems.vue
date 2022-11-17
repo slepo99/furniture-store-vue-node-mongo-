@@ -7,8 +7,8 @@
           >store</router-link>
       </p>
     </div>
-    <div v-else>
-      <transition-group name="list" tag="p">
+    <div v-else >
+      <transition-group name="list" tag="p" class="head">
         <div v-for="(item, id) in cartProducts" :key="id" class="list-item">
           <div class="product">
             <div class="product_image-box">
@@ -83,6 +83,12 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.head {
+  display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+
+}
 .product {
   display: flex;
   width: 1100px;
@@ -205,6 +211,8 @@ export default {
 .product-empty {
   font-size: 28px;
   font-weight: 700px;
+  width:1100px;
+  text-align: start;
   &_link {
     color: black;
   }

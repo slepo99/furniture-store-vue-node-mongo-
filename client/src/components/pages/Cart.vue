@@ -26,10 +26,11 @@ export default {
 <style scoped lang="scss">
 .container-body {
   min-height: 100vh;
-  max-width: 1700px;
   gap: 50px;
   padding: 100px;
   display: flex;
   justify-content: center;
+  
 }
+
 </style>
