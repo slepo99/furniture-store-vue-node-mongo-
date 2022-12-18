@@ -21,7 +21,7 @@
   </div>
 </template>
 <script>
-import { mapGetters, mapMutations, mapState } from "vuex";
+import { mapGetters,  mapState } from "vuex";
 import VueButton from "./UI/VueButton.vue";
 export default {
   components: { VueButton },
