@@ -1,6 +1,8 @@
 import express from "express"; 
 import mongoose from "mongoose";
 import router from "./router.js";
+import authRouter from './AuthRouter.js'
+
 import fileUpload from "express-fileupload";
 import cors from 'cors'
 const PORT = 5000
@@ -10,8 +12,11 @@ const app = express()
 app.use(express.json())
 app.use(express.static('static'))
 app.use(fileUpload({}))
-app.use('/api', router)
 app.use(cors({origin: 'http://localhost:8080'}));
+app.use('/api', router)
+app.use('/auth', authRouter)
+
+
 
 
 async function startApp() {

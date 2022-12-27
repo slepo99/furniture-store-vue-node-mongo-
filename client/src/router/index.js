@@ -3,6 +3,7 @@ import MainComponent from '@/components/pages/MainComponent'
 const Store = () => import('@/components/pages/Store')
 const Product = () => import('@/components/pages/ProductPage')
 const Cart = () => import ('@/components/pages/Cart')
+const Auth = () => import('@/components/pages/Auth')
 const routes = [
   {
     path: '/',
@@ -26,7 +27,12 @@ const routes = [
     name: 'product'
     
   },
-  
+  {
+    path: '/auth',
+    component: Auth,
+    name: 'auth'
+
+  }
 ]
 
 const router = createRouter({
