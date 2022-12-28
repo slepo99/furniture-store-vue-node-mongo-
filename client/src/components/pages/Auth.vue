@@ -1,19 +1,25 @@
 <template>
   <div>
     <div>
-      <form action="">
+      <form action="" @submit.prevent="Login">
         <div>
           <p>Login</p>
-          <input type="text" v-model="username" placeholder="username..." />
+          <input
+            type="text"
+            v-model="data.username"
+            placeholder="username..."
+          />
         </div>
         <div>
           <p>password</p>
-          <input type="text" v-model="password" placeholder="password..." />
+          <input
+            type="text"
+            v-model="data.password"
+            placeholder="password..."
+          />
         </div>
         <div>
-          <button @click.prevent="Login" style="background: #add8e6">
-            Sign In
-          </button>
+          <button style="background: #add8e6">Sign In</button>
         </div>
       </form>
     </div>
@@ -22,32 +28,25 @@
 
 <script>
 import axios from "axios";
-
+import { mapActions } from "vuex";
 export default {
   name: "Auth",
   data() {
     return {
-      username: "",
-      password: "",
+      data: {
+        username: "",
+        password: "",
+      },
     };
   },
   methods: {
-    async Login() {
-      try {
-        const response = await axios.post(`http://localhost:5000/auth/login`, {
-          username: this.username,
-          password: this.password,
-        });
-          localStorage.setItem("token", response.data.token);
-          //this.$router.push('/')
-          console.log(response);
-      } catch (err) {
-        console.log('wrong password');
-      }
+    ...mapActions({
+      login: "auth/Login",
+    }),
+    Login() {
+      this.login(this.data);
     },
-   
   },
-  
 };
 </script>
 
