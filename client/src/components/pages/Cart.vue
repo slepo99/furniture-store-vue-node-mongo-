@@ -2,24 +2,24 @@
   <div>
     <vue-header />
     <div class="container-body">
-      <cart-order/>
+      <cart-order />
       <cart-items />
     </div>
-    <vue-footer/>
+    <vue-footer />
   </div>
 </template>
 
 <script>
 import CartItems from "@/components/CartItems.vue";
-import VueFooter from '@/components/UI/VueFooter.vue';
+import VueFooter from "@/components/UI/VueFooter.vue";
 import VueHeader from "@/components/UI/VueHeader.vue";
-import CartOrder from '@/components/CartOrder.vue';
+import CartOrder from "@/components/CartOrder.vue";
 export default {
   components: { CartItems, VueHeader, VueFooter, CartOrder },
   name: "cart",
   mounted() {
-    window.scrollTo(0, top)
-   }
+    window.scrollTo(0, top);
+  },
 };
 </script>
 
@@ -30,7 +30,5 @@ export default {
   padding: 100px;
   display: flex;
   justify-content: center;
-  
 }
-
 </style>

@@ -4,10 +4,8 @@ export const authModule = {
   state() {
     return {
       credentials: {
-        // token: localStorage.getItem("token") || null,
-        // user: localStorage.getItem(("user")) || null,
         token: null,
-        user: null
+        user: null,
       },
     };
   },
@@ -15,19 +13,17 @@ export const authModule = {
   mutations: {
     setToken(state, token) {
       state.credentials.token = token;
-      //localStorage.setItem("token", token);
     },
     setUserData(state, user) {
       state.credentials.user = user;
-     // localStorage.setItem("user", JSON.stringify(user));
     },
-      deleteToken(state) {
-        state.credentials.token = null
-        state.credentials.user = null
-        localStorage.removeItem('token')
-        localStorage.removeItem('user')
-        router.push('/auth')
-      }
+    deleteToken(state) {
+      state.credentials.token = null;
+      state.credentials.user = null;
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      router.push("/auth");
+    },
   },
   actions: {
     async Login({ dispatch }, data) {
@@ -38,11 +34,10 @@ export const authModule = {
         );
         dispatch("attempt", response.data.token);
         dispatch("userData", response.data.user);
-        router.push('/')
-      } catch(e) {
-        console.log('Login error');
+        router.push("/");
+      } catch (e) {
+        console.log("Login error");
       }
-      
     },
     async attempt({ commit }, token) {
       commit("setToken", token);

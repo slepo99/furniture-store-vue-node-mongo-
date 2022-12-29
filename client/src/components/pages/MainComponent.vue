@@ -107,8 +107,8 @@ export default {
     }),
   },
   mounted() {
-    window.scrollTo(0, top)
-  }
+    window.scrollTo(0, top);
+  },
 };
 </script>
 
