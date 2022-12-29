@@ -4,8 +4,10 @@ export const authModule = {
   state() {
     return {
       credentials: {
-        token: localStorage.getItem("token") || null,
-        user: localStorage.getItem("user") || null,
+        // token: localStorage.getItem("token") || null,
+        // user: localStorage.getItem(("user")) || null,
+        token: null,
+        user: null
       },
     };
   },
@@ -13,16 +15,19 @@ export const authModule = {
   mutations: {
     setToken(state, token) {
       state.credentials.token = token;
-      localStorage.setItem("token", token);
+      //localStorage.setItem("token", token);
     },
     setUserData(state, user) {
       state.credentials.user = user;
-      localStorage.setItem("user", JSON.stringify(user));
+     // localStorage.setItem("user", JSON.stringify(user));
     },
-    //   deleteToken(state) {
-    //     state.credentials.token = null
-    //     localStorage.removeItem('token')
-    //   }
+      deleteToken(state) {
+        state.credentials.token = null
+        state.credentials.user = null
+        localStorage.removeItem('token')
+        localStorage.removeItem('user')
+        router.push('/auth')
+      }
   },
   actions: {
     async Login({ dispatch }, data) {

@@ -13,9 +13,7 @@ export const cartModule = {
     productCount(state) {
       return state.productCount;
     },
-    saveData(state) {
-      return window.localStorage.setItem('cart', JSON.stringify(state.cartProducts))
-     },
+    
      getTotalPrice(state) {
       let data = state.cartProducts.reduce((acc, item) => 
           (acc + parseInt(item.price) * item.quantity)

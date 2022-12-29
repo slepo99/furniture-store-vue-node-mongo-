@@ -34,12 +34,18 @@
       </div>
         </router-link>
      
-      <div>
+      <div  class="dropdown">
         <img
           class="container-tools-login"
           src="@/assets/icons/header/Login.png"
           alt="Login"
         />
+        <div class="dropdown-content">
+          <p v-if="this.credentials.token !== null">Hello {{credentials.user.username }}</p>
+          <a v-if="this.credentials.token == null && this.$route.name !== 'auth'" @click="userAuth" >Log in</a>
+          <a v-if="this.credentials.token !== null" @click="logOut" >Log out</a>
+          <a v-if="this.credentials.token == null" >Sign up</a>
+        </div>
       </div>
       <div v-if="this.$route.name == 'store'">
         <div @click="changeStatus">
@@ -68,7 +74,13 @@ export default {
   methods: {
     ...mapMutations({
       changeStatus: "headerProducts/changeStatus",
+      logOut: 'auth/deleteToken'
     }),
+    userAuth() {
+      if(this.credentials.token == null) {
+        this.$router.push('/auth')
+      }
+    }
   },
   computed: {
     ...mapGetters({
@@ -77,12 +89,13 @@ export default {
     }),
     ...mapState({
       isOpen: (state) => state.headerProducts.isOpen,
+      credentials: (state) => state.auth.credentials
     }),
   },
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 * {
   margin: 0 auto;
   padding: 0;
@@ -171,5 +184,51 @@ export default {
   height: 25px;
   width: 22px;
   cursor: pointer;
+}
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+.dropdown-content p {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+  
+}
+.dropdown:hover .container-tools-login {
+  height: 20px;
+  width: 20px;
+}
+.dropdown:hover .dropbtn {background-color: #3e8e41;}
+.container-tools-login:hover {
+  height: 20px;
+  width: 20px;
+}
+.container-tools-cart:hover {
+  height: 25px;
+  width: 25px;
+}
+.container-tools-search:hover {
+  height: 30px;
+  width: 30px;
 }
 </style>

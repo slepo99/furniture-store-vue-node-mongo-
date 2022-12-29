@@ -118,14 +118,12 @@ export default {
   padding: 0;
   box-sizing: border-box;
 }
-
 .container-body {
   max-width: 100%;
   padding: 30px 0 0 0;
   margin: 0 auto;
 }
 .container-center {
-  background: #f2f2f2;
   max-width: 100%;
   max-height: 1000px;
 }
