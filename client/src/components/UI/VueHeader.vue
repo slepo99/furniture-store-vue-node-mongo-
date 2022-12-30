@@ -2,49 +2,62 @@
   <div class="container-header">
     <div class="container-logo">
       <div>
-        <router-link class="link-store" to="/"
-          ><img src="@/assets/icons/header/Logo-Maynooth.svg" alt=""
-        /></router-link>
+        <router-link class="link-store" to="/">
+          <img src="@/assets/icons/header/Logo-Maynooth.svg" alt="logo" />
+        </router-link>
       </div>
     </div>
     <div class="container-links">
       <div>
-        <p>LIVING ROOM</p>
+        <p class="link">LIVING ROOM</p>
       </div>
       <div @click="openSearchFieldToStore">
-        <router-link class="link-store" to="/store">STORE</router-link>
+        <router-link class="link-store" to="/store"
+          ><p class="link">STORE</p></router-link
+        >
       </div>
       <div>
-        <p>CONTACT</p>
+        <p class="link">CONTACT</p>
       </div>
     </div>
+
+    <dialog-window :show="show" @cancelLoggingOut="cancelLoggingOut" />
 
     <div class="container-tools">
       <router-link to="/cart" class="cart-link">
         <div class="container-tools-cart-box">
-        
-        <img
-          class="container-tools-cart"
-          src="@/assets/icons/header/Cart.png"
-          alt="Cart"
-        />
-        <p v-if="cartProducts.length">
-          {{ cartProducts.length }}
-        </p>
-      </div>
-        </router-link>
-     
-      <div  class="dropdown">
+          <img
+            class="container-tools-cart"
+            src="@/assets/icons/header/Cart.png"
+            alt="Cart"
+          />
+          <p v-if="cartProducts.length">
+            {{ cartProducts.length }}
+          </p>
+        </div>
+      </router-link>
+
+      <div class="dropdown">
         <img
           class="container-tools-login"
           src="@/assets/icons/header/Login.png"
           alt="Login"
         />
         <div class="dropdown-content">
-          <p v-if="this.credentials.token !== null">Hello {{credentials.user.username }}</p>
-          <a v-if="this.credentials.token == null && this.$route.name !== 'auth'" @click="userAuth" >Log in</a>
-          <a v-if="this.credentials.token !== null" @click="logOut" >Log out</a>
-          <a v-if="this.credentials.token == null" >Sign up</a>
+          <p v-if="this.credentials.token !== null">
+            Hello {{ credentials.user.username }}
+          </p>
+          <a
+            v-if="this.credentials.token == null && this.$route.name !== 'auth'"
+            @click="userAuth"
+            >Log in</a
+          >
+          <a
+            v-if="this.credentials.token !== null"
+            @click="callLogoutDialogWindow"
+            >Log out</a
+          >
+          <a v-if="this.credentials.token == null">Sign up</a>
         </div>
       </div>
       <div v-if="this.$route.name == 'store'">
@@ -69,18 +82,30 @@
 
 <script>
 import { mapGetters, mapMutations, mapState } from "vuex";
+import DialogWindow from "@/components/DialogWindow.vue";
 export default {
+  components: { DialogWindow },
   name: "vue-header",
+  data() {
+    return {
+      show: false,
+    };
+  },
   methods: {
     ...mapMutations({
       changeStatus: "headerProducts/changeStatus",
-      logOut: 'auth/deleteToken'
     }),
     userAuth() {
-      if(this.credentials.token == null) {
-        this.$router.push('/auth')
+      if (this.credentials.token == null) {
+        this.$router.push("/auth");
       }
-    }
+    },
+    callLogoutDialogWindow() {
+      return (this.show = true);
+    },
+    cancelLoggingOut() {
+      return (this.show = false);
+    },
   },
   computed: {
     ...mapGetters({
@@ -89,7 +114,7 @@ export default {
     }),
     ...mapState({
       isOpen: (state) => state.headerProducts.isOpen,
-      credentials: (state) => state.auth.credentials
+      credentials: (state) => state.auth.credentials,
     }),
   },
 };
@@ -137,6 +162,7 @@ export default {
   text-decoration: none;
   color: #ffffff;
 }
+
 .container-tools {
   display: flex;
   align-items: center;
@@ -150,10 +176,16 @@ export default {
 .container-tools-cart-box p {
   font-size: 15px;
   color: white;
-  
 }
 .cart-link {
   text-decoration: none;
+}
+.link:hover {
+  color: #842c68;
+  cursor: pointer;
+}
+.link:active {
+  font-size: 20px;
 }
 .container-tools-cart {
   position: relative;
@@ -166,6 +198,7 @@ export default {
   width: 20px;
   margin-bottom: 2px;
   cursor: pointer;
+  transition: width 1s, height 1s;
 }
 .container-tools-login {
   display: flex;
@@ -176,6 +209,7 @@ export default {
   width: 15px;
   margin-top: 2px;
   cursor: pointer;
+  transition: width 1s, height 1s;
 }
 .container-tools-search {
   display: flex;
@@ -184,13 +218,14 @@ export default {
   height: 25px;
   width: 22px;
   cursor: pointer;
+  transition: width 1s, height 1s;
 }
 .dropdown-content {
   display: none;
   position: absolute;
   background-color: #f1f1f1;
   min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
 }
 
@@ -199,6 +234,7 @@ export default {
   padding: 12px 16px;
   text-decoration: none;
   display: block;
+  cursor: pointer;
 }
 .dropdown-content p {
   color: black;
@@ -207,18 +243,20 @@ export default {
   display: block;
 }
 
-.dropdown-content a:hover {background-color: #ddd;
+.dropdown-content a:hover {
+  background-color: #ddd;
 }
 
 .dropdown:hover .dropdown-content {
   display: block;
-  
 }
 .dropdown:hover .container-tools-login {
   height: 20px;
   width: 20px;
 }
-.dropdown:hover .dropbtn {background-color: #3e8e41;}
+.dropdown:hover .dropbtn {
+  background-color: #3e8e41;
+}
 .container-tools-login:hover {
   height: 20px;
   width: 20px;

@@ -63,5 +63,6 @@ export default {
   padding-left: 10px;
   padding-right: 10px;
   padding-bottom: 5px;
+  border: 1px solid black;
 }
 </style>
