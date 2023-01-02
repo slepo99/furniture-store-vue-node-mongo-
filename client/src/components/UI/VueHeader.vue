@@ -57,7 +57,9 @@
             @click="callLogoutDialogWindow"
             >Log out</a
           >
-          <a v-if="this.credentials.token == null">Sign up</a>
+          <a v-if="this.credentials.token == null"
+          @click="$router.push('/registration')"
+          >Sign up</a>
         </div>
       </div>
       <div v-if="this.$route.name == 'store'">

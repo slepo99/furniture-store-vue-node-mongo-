@@ -5,11 +5,11 @@
       <div>
         <img
           class="login-logo"
-          src="@/assets/images/authPage/Group.svg"
+          src="@/assets/images/authPage/noun-sign-up-638654.png"
           alt=""
         />
       </div>
-      <form action="" @submit.prevent="Login">
+      <form action="" @submit.prevent="Reg">
         <div>
           <input
             class="username"
@@ -27,44 +27,48 @@
           />
         </div>
         <div>
-          <button class="btn"><p>Sign in</p></button>
+          <input
+            class="password"
+            type="text"
+            v-model="data.confirmPassword"
+            placeholder="confirm password"
+          />
+        </div>
+        <div>
+          <button class="btn"><p>Sign up</p></button>
         </div>
       </form>
-      <div>
-        <p>
-          Don’t have an account?
-          <a @click="signUp" style="color: blue; cursor: pointer">Sign up</a>
-        </p>
-      </div>
     </div>
     <vue-footer />
   </div>
 </template>
 
 <script>
-import { mapActions, mapMutations } from "vuex";
-import VueHeader from "../UI/VueHeader.vue";
+import { mapActions } from "vuex";
 import VueFooter from "../UI/VueFooter.vue";
+import VueHeader from "../UI/VueHeader.vue";
 export default {
   components: { VueHeader, VueFooter },
-  name: "Auth",
+  name: "registration",
   data() {
     return {
       data: {
         username: "",
         password: "",
+        confirmPassword: "",
       },
     };
   },
   methods: {
     ...mapActions({
-      login: "auth/Login",
+      registration: "registration/Registration",
     }),
-    Login() {
-      this.login(this.data);
-    },
-    signUp() {
-      this.$router.push("/registration");
+    Reg() {
+      if (this.data.password == this.data.confirmPassword) {
+        this.registration(this.data);
+      } else {
+        console.error("passwords not same");
+      }
     },
   },
 };
@@ -78,8 +82,11 @@ export default {
   margin: 0 auto;
   background-size: cover;
   padding-top: 200px;
+
   .login-logo {
     margin-bottom: 40px;
+    width: 124px;
+    height: 122px;
   }
   .username {
     width: 300px;
