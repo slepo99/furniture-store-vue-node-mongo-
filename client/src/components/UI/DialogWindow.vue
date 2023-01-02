@@ -36,7 +36,7 @@ export default {
     min-height: 50px;
     min-width: 200px;
     display: flex;
-    padding: 20px;
+    padding: 10px;
     flex-direction: column;
     flex-wrap: nowrap;
     justify-content: space-around;
