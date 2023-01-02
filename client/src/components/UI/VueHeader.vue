@@ -21,7 +21,7 @@
       </div>
     </div>
 
-    <dialog-window :show="show" @cancelLoggingOut="cancelLoggingOut" />
+    <logout-window :show="show" @cancelLoggingOut="cancelLoggingOut"/>
 
     <div class="container-tools">
       <router-link to="/cart" class="cart-link">
@@ -84,9 +84,10 @@
 
 <script>
 import { mapGetters, mapMutations, mapState } from "vuex";
-import DialogWindow from "@/components/DialogWindow.vue";
+import LogoutWindow from '../LogoutWindow.vue';
+
 export default {
-  components: { DialogWindow },
+  components: {LogoutWindow  },
   name: "vue-header",
   data() {
     return {
@@ -119,6 +120,9 @@ export default {
       credentials: (state) => state.auth.credentials,
     }),
   },
+  mounted() {
+    
+  }
 };
 </script>
 

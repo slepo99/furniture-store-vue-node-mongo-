@@ -3,7 +3,6 @@ export const cartModule = {
     return {
       cartProducts: [],
       productCount: "1",
-
     };
   },
   getters: {
@@ -13,13 +12,14 @@ export const cartModule = {
     productCount(state) {
       return state.productCount;
     },
-    
-     getTotalPrice(state) {
-      let data = state.cartProducts.reduce((acc, item) => 
-          (acc + parseInt(item.price) * item.quantity)
-      ,0) 
+
+    getTotalPrice(state) {
+      let data = state.cartProducts.reduce(
+        (acc, item) => acc + parseInt(item.price) * item.quantity,
+        0
+      );
       return data;
-    }
+    },
   },
   mutations: {
     setProducts(state, cartProducts) {
@@ -45,14 +45,22 @@ export const cartModule = {
       }
     },
     deleteProduct(state, index) {
-      return state.cartProducts.splice(index, 1)
+      return state.cartProducts.splice(index, 1);
     },
-   
-    
-    
+    // isTokenExists() {
+    //   let storage;
+    //   for (var i = 0; i < localStorage.length; i++) {
+    //     storage = JSON.parse(localStorage.getItem(localStorage.key(i)));
+    //   }
+    //   if (storage.auth.credentials.token) {
+    //     this.isLoggedIn;
+    //     console.log(this.isLoggedIn);
+    //   } else {
+    //     this.isLoggedIn = true;
+    //     console.log(this.isLoggedIn);
+    //   }
+    // },
   },
 
-  
   namespaced: true,
 };
-

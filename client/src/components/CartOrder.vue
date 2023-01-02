@@ -14,17 +14,16 @@
       </div>
     </div>
     <div style="display: flex; justify-content: center">
-      <vue-button class="btn">
-        <p class="btn-text">order now</p>
-      </vue-button>
+      <order-window />
     </div>
   </div>
 </template>
 <script>
-import { mapGetters,  mapState } from "vuex";
-import VueButton from "./UI/VueButton.vue";
+import { mapGetters, mapState } from "vuex";
+import OrderWindow from "./OrderWindow.vue";
+
 export default {
-  components: { VueButton },
+  components: { OrderWindow },
   name: "cart-order",
   computed: {
     ...mapState({
@@ -98,15 +97,6 @@ export default {
   line-height: 23px;
   display: flex;
   align-items: center;
-  text-transform: capitalize;
-}
-.btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 30px;
-}
-.btn-text {
   text-transform: capitalize;
 }
 </style>

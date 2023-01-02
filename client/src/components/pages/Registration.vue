@@ -81,12 +81,12 @@ export default {
   width: 100%;
   margin: 0 auto;
   background-size: cover;
-  padding-top: 200px;
+  padding-top:150px;
 
   .login-logo {
     margin-bottom: 40px;
-    width: 124px;
-    height: 122px;
+    width: 144px;
+    height: 142px;
   }
   .username {
     width: 300px;
