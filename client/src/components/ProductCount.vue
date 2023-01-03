@@ -39,5 +39,6 @@ export default {
   align-items: center;
   text-transform: capitalize;
   cursor: pointer;
+  outline: none;
 }
 </style>

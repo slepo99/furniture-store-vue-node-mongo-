@@ -33,10 +33,10 @@ export default {
     background: #fff5;
     backdrop-filter: blur(5px);
     border-radius: 2px;
-    min-height: 50px;
-    min-width: 200px;
+    // min-height: 50px;
+    // min-width: 200px;
     display: flex;
-    padding: 10px;
+    // padding: 10px;
     flex-direction: column;
     flex-wrap: nowrap;
     justify-content: space-around;

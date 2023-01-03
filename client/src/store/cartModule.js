@@ -22,6 +22,9 @@ export const cartModule = {
     },
   },
   mutations: {
+    resetProductCount(state) {
+      state.productCount = "1";
+    },
     setProducts(state, cartProducts) {
       state.cartProducts = cartProducts;
     },

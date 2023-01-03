@@ -21,7 +21,7 @@
       </div>
     </div>
 
-    <logout-window :show="show" @cancelLoggingOut="cancelLoggingOut"/>
+    <logout-window :show="show" @cancelLoggingOut="cancelLoggingOut" />
 
     <div class="container-tools">
       <router-link to="/cart" class="cart-link">
@@ -57,13 +57,15 @@
             @click="callLogoutDialogWindow"
             >Log out</a
           >
-          <a v-if="this.credentials.token == null"
-          @click="$router.push('/registration')"
-          >Sign up</a>
+          <a
+            v-if="this.credentials.token == null"
+            @click="$router.push('/registration')"
+            >Sign up</a
+          >
         </div>
       </div>
       <div v-if="this.$route.name == 'store'">
-        <div @click="changeStatus">
+        <div @click="changeStatusOfSearchField">
           <img
             v-if="!isOpen"
             class="container-tools-search"
@@ -84,10 +86,10 @@
 
 <script>
 import { mapGetters, mapMutations, mapState } from "vuex";
-import LogoutWindow from '../LogoutWindow.vue';
+import LogoutWindow from "../LogoutWindow.vue";
 
 export default {
-  components: {LogoutWindow  },
+  components: { LogoutWindow },
   name: "vue-header",
   data() {
     return {
@@ -98,6 +100,9 @@ export default {
     ...mapMutations({
       changeStatus: "headerProducts/changeStatus",
     }),
+    changeStatusOfSearchField() {
+      this.changeStatus();
+    },
     userAuth() {
       if (this.credentials.token == null) {
         this.$router.push("/auth");
@@ -120,9 +125,6 @@ export default {
       credentials: (state) => state.auth.credentials,
     }),
   },
-  mounted() {
-    
-  }
 };
 </script>
 

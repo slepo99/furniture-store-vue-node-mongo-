@@ -8,10 +8,7 @@
         <div class="product">
           <div class="products-info">
             <img
-              :src="
-                require('@/../../server/static/' +
-                  item.picture)
-              "
+              :src="require('@/../../server/static/' + item.picture)"
               alt=""
             />
             <div class="item-block">
@@ -24,7 +21,7 @@
           </div>
         </div>
         <router-link :to="{ name: 'product', params: { id: item._id } }">
-          <button class="chooseBtn">Choose options</button>
+          <button class="chooseBtn"><p>Choose options</p></button>
         </router-link>
 
         <hr class="horizontal" />
@@ -70,20 +67,25 @@ export default {
   width: 150px;
   height: 30px;
   cursor: pointer;
-  margin-bottom: 30px;
+  margin: 15px 0 30px 0;
   background: #e5e5e5;
-  border: 1px solid #000000;
-  border-radius: 0.5px;
+  border: 1px solid #b2b1b1;
+  border-radius: 10px;
+  p {
+    margin: 0;
+    font-weight: 600;
+    font-size: 15px;
+  }
 }
 .chooseBtn:hover {
-  background-color: rgb(222, 123, 123);
+  background-color: black;
   color: white;
 }
 .chooseBtn:active {
-  background-color: rgb(222, 123, 123);
-  color: black;
-  width: 170px;
-  height: 45px;
+  background-color: black;
+  color: white;
+  width: 160px;
+  height: 40px;
 }
 .item-block {
   display: flex;
@@ -91,11 +93,13 @@ export default {
 }
 img {
   width: 100%;
+  border: 1px solid #ababab;
+  border-radius: 10px;
 }
 .type {
   font-style: normal;
-  font-weight: 400;
-  font-size: 18px;
+  font-weight: 500;
+  font-size: 19px;
   line-height: 21px;
 }
 .price {
@@ -108,12 +112,11 @@ img {
 }
 .name {
   font-style: normal;
-  font-weight: 400;
+  font-weight: 500;
   font-size: 16px;
   line-height: 19px;
   text-transform: capitalize;
   text-align: left;
-
   color: #000000;
 }
 .horizontal {

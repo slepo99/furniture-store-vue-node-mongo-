@@ -93,11 +93,15 @@ export default {
     ...mapMutations({
       createProduct: "cart/createProduct",
       updateProductCount: "cart/updateProductCount",
+      resetProductCount: "cart/resetProductCount",
     }),
     addToCart(item) {
       for (let i = 0; i < parseFloat(this.productCount); i++) {
         this.createProduct({ ...item, quantity: 1 });
       }
+      setTimeout(() => {
+        return this.resetProductCount();
+      }, 1000);
     },
     getSelectedData() {
       const data = this.products.filter(
@@ -108,7 +112,8 @@ export default {
   },
   mounted() {
     this.fetchProducts();
-    window.scrollTo(0, top)
+    window.scrollTo(0, top);
+    this.resetProductCount();
   },
 };
 </script>

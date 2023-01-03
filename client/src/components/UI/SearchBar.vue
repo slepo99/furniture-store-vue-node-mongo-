@@ -1,10 +1,11 @@
 <template>
   <div class="form__group field">
     <input
+      ref="input"
       type="text"
       :value="modelValue"
       @input="updateInput"
-      placeholder="search product..."
+      placeholder="SEARCH PRODUCT..."
       class="form__field"
       name="search product..."
       id="name"
@@ -15,16 +16,26 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   name: "search-bar",
   props: {
     modelValue: [String, Number],
   },
-  computed: {},
+  computed: {
+    ...mapState({
+      isOpen: (state) => state.headerProducts.isOpen,
+    }),
+  },
   methods: {
     updateInput(event) {
       this.$emit("update:modelValue", event.target.value);
     },
+  },
+  mounted() {
+    if (this.isOpen == true) {
+      this.$nextTick(() => this.$refs.input.focus());
+    }
   },
 };
 </script>
@@ -39,6 +50,8 @@ $gray: #9b9b9b;
   padding: 15px 0 0;
   margin-top: 10px;
   width: 50%;
+  border-color: black;
+  color: black;
 }
 
 .form__field {
@@ -48,6 +61,7 @@ $gray: #9b9b9b;
   border-bottom: 2px solid $gray;
   outline: 0;
   font-size: 1.3rem;
+
   color: black;
   padding: 7px 0;
   background: transparent;
@@ -55,12 +69,14 @@ $gray: #9b9b9b;
 
   &::placeholder {
     color: transparent;
+    text-transform: uppercase;
   }
 
   &:placeholder-shown ~ .form__label {
     font-size: 1.3rem;
     cursor: text;
     top: 20px;
+    text-transform: uppercase;
   }
 }
 .form__label {
@@ -70,6 +86,8 @@ $gray: #9b9b9b;
   transition: 0.2s;
   font-size: 1rem;
   color: $gray;
+  color: black;
+  border-color: black;
 }
 .form__field:focus {
   ~ .form__label {
@@ -80,6 +98,7 @@ $gray: #9b9b9b;
     font-size: 1rem;
     color: $primary;
     font-weight: 700;
+    color: black;
   }
   padding-bottom: 6px;
   font-weight: 700;
