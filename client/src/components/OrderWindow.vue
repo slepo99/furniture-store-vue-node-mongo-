@@ -13,13 +13,21 @@
         </div>
 
         <form>
-          <span class="text-center">login</span>
+          <span class="text-center"
+            >To place an order, please provide correct data</span
+          >
           <div class="banking-box">
-            <h4>Choose banking</h4>
+            <h4>Choose banking:</h4>
             <select class="banking-select" name="" id="">
               <option value="">Visa</option>
               <option value="">MASTERCARD</option>
               <option value="">Union pay</option>
+            </select>
+            <h4>Choose your country:</h4>
+            <select class="banking-select" name="" id="">
+              <option v-for="item in countries" :key="item" :value="item">
+                {{ item }}
+              </option>
             </select>
           </div>
           <div class="input-container">
@@ -64,11 +72,13 @@
 import VueButton from "./UI/VueButton.vue";
 import DialogWindow from "@/components/UI/DialogWindow.vue";
 import { mapState } from "vuex";
+import axios from "axios";
 export default {
   components: { DialogWindow, VueButton },
   data() {
     return {
       show: false,
+      countries: null,
     };
   },
   computed: {
@@ -94,14 +104,22 @@ export default {
       this.show = true;
       this.$nextTick(() => this.$refs.focusInput.focus());
     },
+    async getCountry() {
+      const response = await axios.get("https://restcountries.com/v3.1/all");
+      return (this.countries = response.data
+        .map((item) => item.name.common)
+        .sort());
+    },
   },
-  mounted() {},
+  mounted() {
+    this.getCountry();
+  },
 };
 </script>
 
 <style scoped lang="scss">
 .dialog-window {
-  padding: 0;
+  margin-top: 200px;
 }
 .btn {
   display: flex;
@@ -150,11 +168,12 @@ export default {
 //----------------------------------------------------------------------------
 .text-center {
   color: #fff;
-  text-transform: uppercase;
-  font-size: 23px;
-  margin: -50px 0 80px 0;
+  text-transform: none;
+  font-size: 20px;
+  margin: -50px 0 60px 0;
   display: block;
   text-align: center;
+  width: 450px;
 }
 .box {
   position: absolute;
@@ -163,7 +182,7 @@ export default {
   transform: translate(-50%, -50%);
   background-color: rgba(0, 0, 0, 0.89);
   border-radius: 3px;
-
+  margin-top: 120px;
   form {
     padding: 50px 100px;
   }
@@ -171,7 +190,7 @@ export default {
 .input-container {
   position: relative;
   margin-bottom: 25px;
-  width: 200px;
+  width: 100%;
 }
 .input-container label {
   position: absolute;
@@ -225,12 +244,14 @@ export default {
 }
 .banking-box {
   width: 100%;
-  margin-bottom: 40px;
+  margin-bottom: 25px;
+  display: flex;
+  flex-direction: column;
 
   .banking-select {
     border: none;
     border-bottom: 1px solid white;
-    width: 200px;
+    width: 100%;
     height: 30px;
     outline: none;
     background-color: rgba(0, 0, 0, 0);
@@ -242,6 +263,7 @@ export default {
     }
   }
   h4 {
+    height: 15px;
     text-align: left;
     color: white;
   }
