@@ -42,7 +42,6 @@
     <vue-footer />
   </div>
 </template>
-
 <script>
 import { mapActions } from "vuex";
 import VueFooter from "../UI/VueFooter.vue";

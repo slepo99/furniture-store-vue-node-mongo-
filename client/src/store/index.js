@@ -4,6 +4,7 @@ import { headerModule } from './headerModule'
 import { filtersModule } from './filterModule'
 import { authModule } from './authModule'
 import { registrationModule } from './registrationModule'
+import { orderModule } from './orderModule'
 import createPersistedState from "vuex-persistedstate";
 
 export default createStore({
@@ -13,7 +14,8 @@ export default createStore({
     headerProducts: headerModule,
     filter: filtersModule,
     auth: authModule ,
-    registration: registrationModule
+    registration: registrationModule,
+    order: orderModule
   
 
   },

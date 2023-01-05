@@ -175,7 +175,6 @@ export const filtersModule = {
     setText(state, text) {
         state.text = text
     },
-   
   },
   actions: {
     async fetchProducts({ state, commit }) {

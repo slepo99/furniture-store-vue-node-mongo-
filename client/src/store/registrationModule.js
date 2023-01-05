@@ -1,4 +1,5 @@
 import axios from "axios";
+import router from "@/router";
 export const registrationModule = {
   state() {
     return {
@@ -26,7 +27,7 @@ export const registrationModule = {
         );
         dispatch("responseStatus", response.status);
         dispatch("responseMessage", response.data.message);
-        console.log(response);
+        router.push('/auth')
       } catch (e) {
         console.log(e);
       }
