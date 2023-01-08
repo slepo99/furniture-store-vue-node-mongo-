@@ -5,6 +5,7 @@ const Product = () => import('@/components/pages/ProductPage')
 const Cart = () => import ('@/components/pages/Cart')
 const Auth = () => import('@/components/pages/Auth')
 const Registration = () => import('@/components/pages/Registration')
+const OrderedProducts = () => import('@/components/pages/OrderedProducts')
 const routes = [
   {
     path: '/',
@@ -38,6 +39,11 @@ const routes = [
     path: '/registration',
     component: Registration,
     name: "registration"
+  },
+  {
+    path: '/ordered_products',
+    component: OrderedProducts,
+    name: 'ordered products'
   }
 ]
 

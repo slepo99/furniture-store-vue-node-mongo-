@@ -24,27 +24,32 @@
             </select>
           </div>
           <div class="input-container">
-            <input type="text" required="" ref="focusInput" v-model="orderData.name"/>
+            <input
+              type="text"
+              required=""
+              ref="focusInput"
+              v-model="orderData.name"
+            />
             <label>Name:</label>
           </div>
           <div class="input-container">
-            <input type="text" required="" v-model="orderData.surname"/>
+            <input type="text" required="" v-model="orderData.surname" />
             <label>Surname</label>
           </div>
           <div class="input-container">
-            <input type="text" required="" v-model="orderData.city"/>
+            <input type="text" required="" v-model="orderData.city" />
             <label>City</label>
           </div>
           <div class="input-container">
-            <input type="text" required="" v-model="orderData.adress"/>
+            <input type="text" required="" v-model="orderData.adress" />
             <label>Adress</label>
           </div>
           <div class="input-container">
-            <input type="text" required="" v-model="orderData.postCode"/>
+            <input type="text" required="" v-model="orderData.postCode" />
             <label>Post code</label>
           </div>
           <div class="input-container">
-            <input type="text" required="" v-model="orderData.phoneNumber"/>
+            <input type="text" required="" v-model="orderData.phoneNumber" />
             <label>Phone number</label>
           </div>
 
@@ -93,11 +98,12 @@
             <label>CVV</label>
           </div>
 
-          <button type="button" @click="compliteOrder" class="btn-window">submit</button>
+          <button type="button" @click="compliteOrder" class="btn-window">
+            submit
+          </button>
         </form>
       </div>
     </dialog-window>
-
     <dialog-window v-else-if="notLogged" :show="show">
       <div class="message-box">
         <div class="dialog-close">
@@ -131,19 +137,21 @@ export default {
       countries: null,
       setWindow: true,
       orderData: {
-        country: '',
-        name: '',
-        surname:'',
-        city: '',
-        adress: '',
-        postCode: '',
-        phoneNumber: ''
-      }
+        country: "",
+        name: "",
+        surname: "",
+        city: "",
+        adress: "",
+        postCode: "",
+        phoneNumber: "",
+        products: null,
+      },
     };
   },
   computed: {
     ...mapState({
       credentials: (state) => state.auth.credentials,
+      cartProducts: (state) => state.cart.cartProducts,
     }),
     Logged() {
       return this.credentials.token;
@@ -151,14 +159,14 @@ export default {
     notLogged() {
       return !this.credentials.token;
     },
-
     goToSignUp() {
       this.$router.push("/registration");
     },
   },
   methods: {
     ...mapActions({
-      Order: 'order/Order'
+      Order: "order/Order",
+      
     }),
     closeDialog() {
       this.show = false;
@@ -175,7 +183,8 @@ export default {
       return (this.setWindow = true);
     },
     compliteOrder() {
-      this.Order(this.orderData)
+      this.orderData.products=(this.cartProducts);
+      this.Order(this.orderData);
     },
     async getCountry() {
       const response = await axios.get("https://restcountries.com/v3.1/all");
@@ -186,6 +195,7 @@ export default {
   },
   mounted() {
     this.getCountry();
+    
   },
 };
 </script>

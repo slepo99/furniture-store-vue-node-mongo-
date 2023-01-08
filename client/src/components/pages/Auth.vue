@@ -10,6 +10,7 @@
         />
       </div>
       <form action="" @submit.prevent="Login">
+        <!-- <small v-if="v$.data.username.required && v$.data.username.$dirty">qwe</small> -->
         <div>
           <input
             class="username"
@@ -27,7 +28,7 @@
           />
         </div>
         <div>
-          <button class="btn"><p>Sign in</p></button>
+          <button type="submit" class="btn"><p>Sign in</p></button>
         </div>
       </form>
       <div>
@@ -56,17 +57,22 @@ export default {
       },
     };
   },
+
   methods: {
     ...mapActions({
       login: "auth/Login",
     }),
     Login() {
       this.login(this.data);
+      console.log(this.$v);
     },
     signUp() {
       this.$router.push("/registration");
     },
   },
+  mounted() {
+    
+  }
 };
 </script>
 
@@ -100,6 +106,7 @@ export default {
     margin-bottom: 30px;
     outline-color: black;
   }
+  
   .password {
     width: 300px;
     height: 45px;
@@ -119,7 +126,10 @@ export default {
     outline-color: black;
     margin-bottom: 30px;
   }
-  .btn {
+  .invalid {
+    border-color: red;
+  }
+    .btn {
     width: 300px;
     height: 45px;
     left: 490px;

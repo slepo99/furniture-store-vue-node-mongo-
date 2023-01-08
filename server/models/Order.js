@@ -1,17 +1,13 @@
 import mongoose from "mongoose";
 
 const Order = new mongoose.Schema({
-    productType: {type: String},
-    productName: {type: String},
-    productImage: {type: String},
-    productCount: {type: String},
-    productPrice: {type: String},
+    products: {},
     country: {type: String},
-    city: {type: String},
-    adress: {type: String},
-    postCode: {type: String},
-    name: {type: String},
-    surname: {type: String},
-    phoneNumber: {type: String}
+    city: {type: String, required: true},
+    adress: {type: String, required: true},
+    postCode: {type: String, required: true},
+    name: {type: String, required: true},
+    surname: {type: String, required: true},
+    phoneNumber: {type: String, required: true}
 })
 export default mongoose.model('Order', Order)

@@ -3,11 +3,7 @@ class OrderController {
   async create(req, res) {
     try {
       const {
-        productType,
-        productName,
-        productImage,
-        productCount,
-        productPrice,
+        products,
         country,
         city,
         adress,
@@ -17,11 +13,7 @@ class OrderController {
         phoneNumber,
       } = req.body;
       const order = await Order.create({
-        productType,
-        productName,
-        productImage,
-        productCount,
-        productPrice,
+        products,
         country,
         city,
         adress,
