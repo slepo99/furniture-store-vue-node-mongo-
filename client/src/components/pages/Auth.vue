@@ -10,18 +10,30 @@
         />
       </div>
       <form action="" @submit.prevent="Login">
-        <!-- <small v-if="v$.data.username.required && v$.data.username.$dirty">qwe</small> -->
-        <div>
+        <div class="inpit-container">
+          <span v-if="v$.data.username.$error" class="error-message">
+            {{ usernameErrorMessage() }}
+          </span>
           <input
+            :class="{
+              invalid: v$.data.username.$error && v$.data.username.minLength,
+            }"
             class="username"
             type="text"
             v-model="data.username"
             placeholder="USERNAME"
           />
         </div>
-        <div>
+
+        <div class="inpit-container">
+          <span v-if="v$.data.password.$error" class="error-message">
+            {{ passwordErrorMessage() }}
+          </span>
           <input
             class="password"
+            :class="{
+              invalid: v$.data.password.$error && v$.data.password.minLength,
+            }"
             type="text"
             v-model="data.password"
             placeholder="password"
@@ -43,6 +55,8 @@
 </template>
 
 <script>
+import useValidate from "@vuelidate/core";
+import { required, minLength, sameAs } from "@vuelidate/validators";
 import { mapActions, mapMutations } from "vuex";
 import VueHeader from "../UI/VueHeader.vue";
 import VueFooter from "../UI/VueFooter.vue";
@@ -51,28 +65,59 @@ export default {
   name: "Auth",
   data() {
     return {
+      v$: useValidate(),
       data: {
         username: "",
         password: "",
       },
     };
   },
-
+  //v$.data.password.$errors[0].$message
+  validations() {
+    return {
+      data: {
+        username: { required, minLength: minLength(4) },
+        password: { required, minLength: minLength(4) },
+      },
+    };
+  },
   methods: {
     ...mapActions({
       login: "auth/Login",
     }),
     Login() {
-      this.login(this.data);
-      console.log(this.$v);
+      this.v$.$validate();
+      if (!this.v$.$error) {
+        this.login(this.data);
+      }
+      // else {
+      //   console.log(this.v$.data.password.$errors[0].$params.type);
+      // }
     },
     signUp() {
       this.$router.push("/registration");
     },
+    usernameErrorMessage() {
+      if (this.v$.data.username.$errors[0].$params.type == "required") {
+        let str = `${this.v$.data.username.$errors[0].$property} is ${this.v$.data.username.$errors[0].$validator}`;
+        return str[0].toUpperCase() + str.slice(1);
+      } else if (this.v$.data.username.$errors[0].$params.type == "minLength") {
+        let str = `${this.v$.data.username.$errors[0].$property} should be at least ${this.v$.data.username.$errors[0].$params.min} characters long`;
+        return str[0].toUpperCase() + str.slice(1);
+      }
+    },
+    passwordErrorMessage() {
+      if (this.v$.data.password.$errors[0].$params.type == "required") {
+        let str = `${this.v$.data.password.$errors[0].$property} is ${this.v$.data.password.$errors[0].$validator}`;
+        return str[0].toUpperCase() + str.slice(1);
+      } else if (this.v$.data.password.$errors[0].$params.type == "minLength") {
+        let str = `${this.v$.data.password.$errors[0].$property} should be at least ${this.v$.data.password.$errors[0].$params.min} characters long`;
+        return str[0].toUpperCase() + str.slice(1);
+      }
+    },
   },
-  mounted() {
-    
-  }
+
+  mounted() {},
 };
 </script>
 
@@ -106,7 +151,7 @@ export default {
     margin-bottom: 30px;
     outline-color: black;
   }
-  
+
   .password {
     width: 300px;
     height: 45px;
@@ -129,7 +174,7 @@ export default {
   .invalid {
     border-color: red;
   }
-    .btn {
+  .btn {
     width: 300px;
     height: 45px;
     left: 490px;
@@ -158,6 +203,11 @@ export default {
     p:hover {
       color: #000000;
     }
+  }
+  .inpit-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 }
 </style>
