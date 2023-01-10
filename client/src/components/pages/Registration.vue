@@ -93,11 +93,6 @@ export default {
       registration: "registration/Registration",
     }),
     Reg() {
-      // if (this.data.password == this.data.confirmPassword) {
-
-      // } else {
-      //   console.error("passwords not same");
-      // }
       this.v$.$validate();
       if (!this.v$.$error) {
         this.registration(this.data);
@@ -144,7 +139,7 @@ export default {
     align-items: center;
     flex-direction: column;
   }
-  
+
   .login-logo {
     margin-bottom: 40px;
     width: 144px;

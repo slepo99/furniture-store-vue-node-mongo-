@@ -19,7 +19,7 @@
           </span>
           <input
             :class="{
-              invalid: v$.data.username.$error && v$.data.username.minLength,
+              invalid: (v$.data.username.$error && v$.data.username.minLength) || this.authError !== null,
             }"
             class="username"
             type="text"
@@ -36,7 +36,7 @@
           <input
             class="password"
             :class="{
-              invalid: v$.data.password.$error && v$.data.password.minLength,
+              invalid: (v$.data.password.$error && v$.data.password.minLength) || this.authError !== null,
             }"
             type="text"
             v-model="data.password"
@@ -81,7 +81,7 @@ export default {
       data: {
         username: { required, minLength: minLength(4) },
         password: { required, minLength: minLength(4) },
-        
+
       },
     };
   },
