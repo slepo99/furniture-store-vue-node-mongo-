@@ -1,7 +1,6 @@
 <template>
   <div class="form__group field">
     <input
-      ref="input"
       type="text"
       :value="modelValue"
       @input="updateInput"
@@ -32,11 +31,7 @@ export default {
       this.$emit("update:modelValue", event.target.value);
     },
   },
-  mounted() {
-    if (this.isOpen == true) {
-      this.$nextTick(() => this.$refs.input.focus());
-    }
-  },
+  mounted() {},
 };
 </script>
 
@@ -86,7 +81,7 @@ $gray: #9b9b9b;
   transition: 0.2s;
   font-size: 1rem;
   color: $gray;
-  
+
   border-color: black;
 }
 .form__field:focus {
@@ -98,7 +93,6 @@ $gray: #9b9b9b;
     font-size: 1rem;
     color: $primary;
     font-weight: 700;
-    
   }
   padding-bottom: 6px;
   font-weight: 700;

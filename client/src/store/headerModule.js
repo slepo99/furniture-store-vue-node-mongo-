@@ -6,11 +6,6 @@ export const headerModule = {
         isOpen: false
       };
     },
-    getters: {
-      openSearchFieldToStore(state) {
-        state.isOpen = true
-      }
-    },
     mutations: {
         changeStatus(state) {
             return state.isOpen = !state.isOpen

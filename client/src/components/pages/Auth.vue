@@ -11,7 +11,7 @@
       </div>
       <form action="" @submit.prevent="Login">
         <div class="inpit-container">
-          <span v-if="v$.data.username.$error" class="error-message" >
+          <span v-if="v$.data.username.$error" class="error-message">
             {{ usernameErrorMessage() }}
           </span>
           <span v-else-if="this.authError !== null" class="error-message">
@@ -19,7 +19,9 @@
           </span>
           <input
             :class="{
-              invalid: (v$.data.username.$error && v$.data.username.minLength) || this.authError !== null,
+              invalid:
+                (v$.data.username.$error && v$.data.username.minLength) ||
+                this.authError !== null,
             }"
             class="username"
             type="text"
@@ -36,7 +38,9 @@
           <input
             class="password"
             :class="{
-              invalid: (v$.data.password.$error && v$.data.password.minLength) || this.authError !== null,
+              invalid:
+                (v$.data.password.$error && v$.data.password.minLength) ||
+                this.authError !== null,
             }"
             type="text"
             v-model="data.password"
@@ -81,7 +85,6 @@ export default {
       data: {
         username: { required, minLength: minLength(4) },
         password: { required, minLength: minLength(4) },
-
       },
     };
   },

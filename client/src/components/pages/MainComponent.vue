@@ -75,7 +75,7 @@
               <li>Benefit of Feature</li>
               <li>Benefit of Feature</li>
             </ul>
-            <div style="margin-top: 40px" @click="openSearchFieldToStore">
+            <div style="margin-top: 40px" >
               <vue-button class="btn">
                 <router-link to="/store" class="link-store"
                   >Shop living room</router-link
@@ -102,10 +102,6 @@ export default {
   name: "main-component",
   components: { VueHeader, VueFooter, VueButton, Scroll },
   computed: {
-    ...mapGetters({
-      openSearchFieldToStore: "headerProducts/openSearchFieldToStore",
-    }),
-    
   },
   methods: {
     ...mapMutations({

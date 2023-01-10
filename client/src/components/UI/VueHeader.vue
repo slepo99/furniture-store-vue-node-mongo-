@@ -11,7 +11,7 @@
       <div>
         <p class="link">LIVING ROOM</p>
       </div>
-      <div @click="openSearchFieldToStore">
+      <div>
         <router-link class="link-store" to="/store"
           ><p class="link">STORE</p></router-link
         >
@@ -62,6 +62,12 @@
             @click="$router.push('/registration')"
             >Sign up</a
           >
+          <a
+            v-if="checkAdminRules()"
+            @click="$router.push('/ordered_products')"
+          >
+            Ordered products
+          </a>
         </div>
       </div>
       <div v-if="this.$route.name == 'store'">
@@ -114,16 +120,29 @@ export default {
     cancelLoggingOut() {
       return (this.show = false);
     },
+    checkAdminRules() {
+      if (this.credentials.user !== null) {
+        if (this.credentials.user.roles == "ADMIN") {
+          return true;
+        } else {
+          return false;
+        }
+      } else {
+        return false;
+      }
+    },
   },
   computed: {
     ...mapGetters({
       cartProducts: "cart/cartProducts",
-      openSearchFieldToStore: "headerProducts/openSearchFieldToStore",
     }),
     ...mapState({
       isOpen: (state) => state.headerProducts.isOpen,
       credentials: (state) => state.auth.credentials,
     }),
+  },
+  mounted() {
+    console.log(localStorage.getItem("token"));
   },
 };
 </script>

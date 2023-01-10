@@ -23,7 +23,6 @@
         <router-link :to="{ name: 'product', params: { id: item._id } }">
           <button class="chooseBtn"><p>Choose options</p></button>
         </router-link>
-
         <hr class="horizontal" />
       </div>
     </div>
@@ -31,7 +30,7 @@
 </template>
 <script>
 import { mapState, mapMutations, mapGetters } from "vuex";
-import SearchBar from "@/components/UI/SearchBar.vue";
+import SearchBar from "@/components/SearchBar.vue";
 
 export default {
   components: { SearchBar },
