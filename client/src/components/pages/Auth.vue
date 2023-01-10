@@ -11,8 +11,11 @@
       </div>
       <form action="" @submit.prevent="Login">
         <div class="inpit-container">
-          <span v-if="v$.data.username.$error" class="error-message">
+          <span v-if="v$.data.username.$error" class="error-message" >
             {{ usernameErrorMessage() }}
+          </span>
+          <span v-else-if="this.authError !== null" class="error-message">
+            {{ "Wrong username or password" }}
           </span>
           <input
             :class="{
@@ -21,7 +24,7 @@
             class="username"
             type="text"
             v-model="data.username"
-            placeholder="USERNAME"
+            placeholder="username"
           />
         </div>
 
@@ -29,6 +32,7 @@
           <span v-if="v$.data.password.$error" class="error-message">
             {{ passwordErrorMessage() }}
           </span>
+
           <input
             class="password"
             :class="{
@@ -57,7 +61,7 @@
 <script>
 import useValidate from "@vuelidate/core";
 import { required, minLength, sameAs } from "@vuelidate/validators";
-import { mapActions, mapMutations } from "vuex";
+import { mapActions, mapGetters, mapMutations, mapState } from "vuex";
 import VueHeader from "../UI/VueHeader.vue";
 import VueFooter from "../UI/VueFooter.vue";
 export default {
@@ -72,27 +76,30 @@ export default {
       },
     };
   },
-  //v$.data.password.$errors[0].$message
   validations() {
     return {
       data: {
         username: { required, minLength: minLength(4) },
         password: { required, minLength: minLength(4) },
+        
       },
     };
+  },
+  computed: {
+    ...mapState({
+      authError: (state) => state.auth.authError,
+    }),
   },
   methods: {
     ...mapActions({
       login: "auth/Login",
     }),
+
     Login() {
       this.v$.$validate();
       if (!this.v$.$error) {
         this.login(this.data);
       }
-      // else {
-      //   console.log(this.v$.data.password.$errors[0].$params.type);
-      // }
     },
     signUp() {
       this.$router.push("/registration");
@@ -116,8 +123,6 @@ export default {
       }
     },
   },
-
-  mounted() {},
 };
 </script>
 
@@ -171,8 +176,20 @@ export default {
     outline-color: black;
     margin-bottom: 30px;
   }
+  .error-message {
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 5px;
+    width: 300px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 2px;
+  }
   .invalid {
     border-color: red;
+    border: 1px solid red;
   }
   .btn {
     width: 300px;

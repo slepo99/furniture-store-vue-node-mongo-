@@ -4,18 +4,27 @@ export const authModule = {
   state() {
     return {
       credentials: {
-        token: null,
-        user: null,
+        token: localStorage.getItem("token") || null,
+        user: JSON.parse(localStorage.getItem("user")) || null,
       },
+      authError: null,
     };
   },
   getters: {},
   mutations: {
     setToken(state, token) {
       state.credentials.token = token;
+      localStorage.setItem("token", token);
     },
     setUserData(state, user) {
       state.credentials.user = user;
+      localStorage.setItem("user", JSON.stringify(user));
+    },
+    setAuthError(state, authError) {
+      state.authError = authError;
+    },
+    resetAuthError(state) {
+      state.authError = null
     },
     deleteToken(state) {
       state.credentials.token = null;
@@ -26,7 +35,7 @@ export const authModule = {
     },
   },
   actions: {
-    async Login({ dispatch }, data) {
+    async Login({ dispatch, commit }, data) {
       try {
         const response = await axios.post(
           "http://localhost:5000/auth/login",
@@ -35,8 +44,10 @@ export const authModule = {
         dispatch("attempt", response.data.token);
         dispatch("userData", response.data.user);
         router.push("/");
+        localStorage.removeItem("error");
       } catch (e) {
-        console.log("Login error");
+        const error = e;
+        commit("setAuthError", error);
       }
     },
     async attempt({ commit }, token) {

@@ -96,7 +96,7 @@
 import VueHeader from "@/components/UI/VueHeader.vue";
 import VueFooter from "@/components/UI/VueFooter.vue";
 import VueButton from "@/components/UI/VueButton.vue";
-import { mapGetters } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
 import Scroll from "@/components/Scroll.vue";
 export default {
   name: "main-component",
@@ -105,9 +105,16 @@ export default {
     ...mapGetters({
       openSearchFieldToStore: "headerProducts/openSearchFieldToStore",
     }),
+    
+  },
+  methods: {
+    ...mapMutations({
+      resetAuthError: 'auth/resetAuthError'
+    })
   },
   mounted() {
     window.scrollTo(0, top);
+    this.resetAuthError()
   },
 };
 </script>

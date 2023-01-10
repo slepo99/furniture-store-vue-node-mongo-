@@ -9,9 +9,15 @@
           alt=""
         />
       </div>
-      <form action="" @submit.prevent="Reg">
+      <form action="" @submit.prevent="Reg" class="container-input">
         <div>
+          <span v-if="v$.data.username.$error" class="error-message">
+            {{ usernameErrorMessage() }}
+          </span>
           <input
+            :class="{
+              invalid: v$.data.username.$error && v$.data.username.minLength,
+            }"
             class="username"
             type="text"
             v-model="data.username"
@@ -19,7 +25,13 @@
           />
         </div>
         <div>
+          <span v-if="v$.data.password.$error" class="error-message">
+            {{ passwordErrorMessage() }}
+          </span>
           <input
+            :class="{
+              invalid: v$.data.password.$error && v$.data.password.minLength,
+            }"
             class="password"
             type="text"
             v-model="data.password"
@@ -27,7 +39,13 @@
           />
         </div>
         <div>
+          <span v-if="v$.data.confirmPassword.$error" class="error-message">
+            {{ passwordConfirmErrorMessage() }}
+          </span>
           <input
+            :class="{
+              invalid: v$.data.confirmPassword.$error,
+            }"
             class="password"
             type="text"
             v-model="data.confirmPassword"
@@ -43,6 +61,8 @@
   </div>
 </template>
 <script>
+import useValidate from "@vuelidate/core";
+import { required, minLength, sameAs } from "@vuelidate/validators";
 import { mapActions } from "vuex";
 import VueFooter from "../UI/VueFooter.vue";
 import VueHeader from "../UI/VueHeader.vue";
@@ -51,10 +71,20 @@ export default {
   name: "registration",
   data() {
     return {
+      v$: useValidate(),
       data: {
         username: "",
         password: "",
         confirmPassword: "",
+      },
+    };
+  },
+  validations() {
+    return {
+      data: {
+        username: { required, minLength: minLength(4) },
+        password: { required, minLength: minLength(4) },
+        confirmPassword: { sameAs: sameAs(this.data.password) },
       },
     };
   },
@@ -63,10 +93,37 @@ export default {
       registration: "registration/Registration",
     }),
     Reg() {
-      if (this.data.password == this.data.confirmPassword) {
+      // if (this.data.password == this.data.confirmPassword) {
+
+      // } else {
+      //   console.error("passwords not same");
+      // }
+      this.v$.$validate();
+      if (!this.v$.$error) {
         this.registration(this.data);
-      } else {
-        console.error("passwords not same");
+      }
+    },
+    usernameErrorMessage() {
+      if (this.v$.data.username.$errors[0].$params.type == "required") {
+        let str = `${this.v$.data.username.$errors[0].$property} is ${this.v$.data.username.$errors[0].$validator}`;
+        return str[0].toUpperCase() + str.slice(1);
+      } else if (this.v$.data.username.$errors[0].$params.type == "minLength") {
+        let str = `${this.v$.data.username.$errors[0].$property} should be at least ${this.v$.data.username.$errors[0].$params.min} characters long`;
+        return str[0].toUpperCase() + str.slice(1);
+      }
+    },
+    passwordErrorMessage() {
+      if (this.v$.data.password.$errors[0].$params.type == "required") {
+        let str = `${this.v$.data.password.$errors[0].$property} is ${this.v$.data.password.$errors[0].$validator}`;
+        return str[0].toUpperCase() + str.slice(1);
+      } else if (this.v$.data.password.$errors[0].$params.type == "minLength") {
+        let str = `${this.v$.data.password.$errors[0].$property} should be at least ${this.v$.data.password.$errors[0].$params.min} characters long`;
+        return str[0].toUpperCase() + str.slice(1);
+      }
+    },
+    passwordConfirmErrorMessage() {
+      if (this.v$.data.confirmPassword.$errors[0].$params.type == "sameAs") {
+        return "Password should be same";
       }
     },
   },
@@ -80,8 +137,14 @@ export default {
   width: 100%;
   margin: 0 auto;
   background-size: cover;
-  padding-top:150px;
-
+  padding-top: 150px;
+  .container-input div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  
   .login-logo {
     margin-bottom: 40px;
     width: 144px;
@@ -125,6 +188,17 @@ export default {
     outline-color: black;
     margin-bottom: 30px;
   }
+  .error-message {
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 5px;
+    width: 300px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 2px;
+  }
   .btn {
     width: 300px;
     height: 45px;
@@ -154,6 +228,9 @@ export default {
     p:hover {
       color: #000000;
     }
+  }
+  .invalid {
+    border: 1px solid red;
   }
 }
 </style>
