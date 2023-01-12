@@ -17,8 +17,9 @@
           >
           <div class="banking-box">
             <h4>Choose your country:</h4>
-            <select class="banking-select" name="" id="">
-              <option v-for="item in countries" :key="item" :value="item">
+            <select class="banking-select" v-model="orderData.country" >
+              <option default disabled value="">Select your country</option>
+              <option  v-for="(item, id) of countries" :key="id" :value="item" >
                 {{ item }}
               </option>
             </select>
@@ -166,7 +167,6 @@ export default {
   methods: {
     ...mapActions({
       Order: "order/Order",
-      
     }),
     closeDialog() {
       this.show = false;
@@ -174,7 +174,7 @@ export default {
     },
     openOrderWindow() {
       this.show = true;
-      this.$nextTick(() => this.$refs.focusInput.focus());
+      //this.$nextTick(() => this.$refs.focusInput.focus());
     },
     goNext() {
       return (this.setWindow = false);
@@ -183,9 +183,10 @@ export default {
       return (this.setWindow = true);
     },
     compliteOrder() {
-      this.orderData.products=(this.cartProducts);
+      this.orderData.products = this.cartProducts;
       this.Order(this.orderData);
     },
+
     async getCountry() {
       const response = await axios.get("https://restcountries.com/v3.1/all");
       return (this.countries = response.data
@@ -195,7 +196,6 @@ export default {
   },
   mounted() {
     this.getCountry();
-    
   },
 };
 </script>
@@ -339,7 +339,6 @@ export default {
     outline: none;
     background-color: rgba(0, 0, 0, 0);
     cursor: pointer;
-
     color: white;
     select {
       color: white;
