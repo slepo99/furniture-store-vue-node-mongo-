@@ -141,9 +141,6 @@ export default {
       credentials: (state) => state.auth.credentials,
     }),
   },
-  mounted() {
-    console.log(localStorage.getItem("token"));
-  },
 };
 </script>
 

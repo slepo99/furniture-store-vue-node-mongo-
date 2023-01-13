@@ -11,15 +11,15 @@
             close
           </span>
         </div>
-        <form>
+        <form type="submit" @submit.prevent="goNext">
           <span class="text-center"
             >To place an order, please provide correct data</span
           >
           <div class="banking-box">
             <h4>Choose your country:</h4>
-            <select class="banking-select" v-model="orderData.country" >
+            <select class="banking-select" v-model="orderData.country">
               <option default disabled value="">Select your country</option>
-              <option  v-for="(item, id) of countries" :key="id" :value="item" >
+              <option v-for="(item, id) of countries" :key="id" :value="item">
                 {{ item }}
               </option>
             </select>
@@ -54,7 +54,7 @@
             <label>Phone number</label>
           </div>
 
-          <button type="button" @click="goNext" class="btn-window">
+          <button type="submit"  class="btn-window">
             submit
           </button>
         </form>
@@ -130,10 +130,13 @@ import VueButton from "./UI/VueButton.vue";
 import DialogWindow from "@/components/UI/DialogWindow.vue";
 import { mapActions, mapState } from "vuex";
 import axios from "axios";
+import useValidate from "@vuelidate/core";
+import { required, minLength, sameAs } from "@vuelidate/validators";
 export default {
   components: { DialogWindow, VueButton },
   data() {
     return {
+      v$: useValidate(),
       show: false,
       countries: null,
       setWindow: true,
@@ -146,6 +149,19 @@ export default {
         postCode: "",
         phoneNumber: "",
         products: null,
+      },
+    };
+  },
+  validations() {
+    return {
+      orderData: {
+        country: { required},
+        name: { required},
+        surname: { required},
+        city: { required },
+        adress: { required },
+        postCode: { required },
+        phoneNumber: { required},
       },
     };
   },
@@ -174,10 +190,14 @@ export default {
     },
     openOrderWindow() {
       this.show = true;
-      //this.$nextTick(() => this.$refs.focusInput.focus());
+      this.$nextTick(() => this.$refs.focusInput.focus());
     },
     goNext() {
-      return (this.setWindow = false);
+      this.v$.$validate();
+      if (!this.v$.$error) {
+        return (this.setWindow = false);
+      }
+      
     },
     goBack() {
       return (this.setWindow = true);

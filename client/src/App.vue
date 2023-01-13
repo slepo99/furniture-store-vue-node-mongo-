@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <img
-      src="@/assets/images/authPage/background/Login.svg"
+      src="@/assets/images/authPage/background/12628435_5026563.jpg"
       class="background"
       alt=""
     />
