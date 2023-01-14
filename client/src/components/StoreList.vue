@@ -92,7 +92,7 @@ export default {
 }
 img {
   width: 100%;
-  border: 1px solid #ababab;
+  border: 2px solid #ababab;
   border-radius: 10px;
 }
 .type {

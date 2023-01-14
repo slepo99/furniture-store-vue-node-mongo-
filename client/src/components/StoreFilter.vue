@@ -157,6 +157,7 @@ export default {
   flex-direction: column;
   align-items: flex-start;
 }
+
 .horizontal {
   background-color: #c4c4c4;
   height: 1/8px;

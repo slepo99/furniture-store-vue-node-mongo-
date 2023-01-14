@@ -1,19 +1,24 @@
 <template>
   <div class="container-body">
-    <!-- <div class="products-list" v-for="item in orderedItems" :key="item._id">
-      <h1>{{ item.name }}</h1>
-      <div v-for="i in item.products" :key="i">
-        <p>{{ i.type }}</p>
-        <p>{{ i.description }}</p>
+    <div
+      class="container-test"
+      v-for="(item, id) in orderedItems"
+      :key="item._id"
+    >
+      <div
+        class="header"
+        :class="{ open: item.show }"
+        @click.prevent="item.show = !item.show"
+      >
+        <p>{{ item.show }}</p>
+        <p>{{ id + 1 }}</p>
+        <h1>{{ item.name }}</h1>
+        <div class="content" v-for="i in item.products" :key="i">
+          <p>{{ i.type }}</p>
+          <p>{{ i.description }}</p>
+        </div>
+        <button @click.stop="deleteOrderedProduct(item._id)">delete</button>
       </div>
-      <button @click.stop="deleteOrderedProduct(item._id)">delete</button>
-    </div> -->
-    <div class="container-test">
-      <div class="header" :class="{open : show}" @click="show = !show">
-        <h1>open me</h1> 
-        <div class="content">some cntent </div>
-      </div> 
-      
     </div>
   </div>
 </template>
@@ -23,18 +28,11 @@ import { mapActions, mapState } from "vuex";
 
 export default {
   name: "ordered-products-list",
-  data() {
-    return {
-      show: false,
-    };
-  },
+
   computed: {
     ...mapState({
       orderedItems: (state) => state.order.orderedItems,
     }),
-    handleCollapse() {
-      return (this.isOpen = !this.isOpen);
-    },
   },
   methods: {
     ...mapActions({
@@ -48,32 +46,31 @@ export default {
   },
   mounted() {
     this.getOrderedItems();
-    console.log(this.orderedItem);
+    console.log(this.orderedItems);
   },
 };
 </script>
 
 <style scoped lang="scss">
 .container-body {
-  padding-top: 100px;
+  padding: 100px 0 0 50px;
   .container-test {
-    width: 500px;
+    width: 1290px;
     .header {
       width: 100%;
-      height: 45px;
-      background-color: gray;
+      max-height: 150px;
+      border-radius: 12px;
+
       border: 1px solid black;
       transition: 1s;
       overflow: hidden;
     }
     .open {
-      height: 500px;
+      max-height: 1200px;
     }
     h1 {
       margin: 0;
     }
   }
-  
 }
-
 </style>
