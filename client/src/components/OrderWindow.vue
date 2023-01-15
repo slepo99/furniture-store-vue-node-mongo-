@@ -205,6 +205,7 @@ export default {
     compliteOrder() {
       this.orderData.products = this.cartProducts;
       this.Order(this.orderData);
+      location.reload();
     },
 
     async getCountry() {
