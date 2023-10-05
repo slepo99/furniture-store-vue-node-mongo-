@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken"
-import secret from "../config.js"
+import secret from "../config/config.js"
 
 export default function (roles) {
     return function (req, res, next) {

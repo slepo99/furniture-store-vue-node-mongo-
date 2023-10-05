@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken"
-import secret from "../config.js"
+import secret from "../config/config.js"
 
 export default function (req, res, next) {
     if (req.method === "OPTIONS") {
