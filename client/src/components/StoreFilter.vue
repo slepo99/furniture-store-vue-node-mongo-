@@ -49,70 +49,23 @@
       <div class="type-filter-container">
         <h1>Type</h1>
 
-        <div>
+        <div v-for="item in Types()">
           <input
-            ref="comfort"
+            :ref="item"
             type="checkbox"
-            id="comfort"
-            v-model="categories.type.comfort"
-            :disabled="disableComfort"
+            :id="item"
+            v-model="categories.type[item]"
           />
-          <label for="comfort">comfort</label>
-        </div>
-        <div>
-          <input
-            type="checkbox"
-            id="ancient"
-            v-model="categories.type.ancient"
-            :disabled="disableAncient"
-          />
-          <label for="ancient">ancient</label>
-        </div>
-        <div>
-          <input
-            type="checkbox"
-            id="special"
-            v-model="categories.type.special"
-            :disabled="disableSpecial"
-          />
-          <label for="special">special</label>
-        </div>
-        <div>
-          <input
-            type="checkbox"
-            id="sassy"
-            v-model="categories.type.sassy"
-            :disabled="disableSassy"
-          />
-          <label for="sassy">sassy</label>
-        </div>
-        <div>
-          <input
-            type="checkbox"
-            id="sunny"
-            v-model="categories.type.sunny"
-            :disabled="disableSunny"
-          />
-          <label for="sunny">sunny</label>
-        </div>
-        <div>
-          <input
-            type="checkbox"
-            id="classy"
-            v-model="categories.type.classy"
-            :disabled="disableClassy"
-          />
-          <label for="classy">classy</label>
+          <label :for="item"> {{ item }}</label>
         </div>
       </div>
       <hr class="horizontal" />
     </div>
-    <!-- <StoreList /> -->
   </div>
 </template>
 
 <script>
-import { mapActions, mapState, mapGetters, mapMutations } from "vuex";
+import { mapActions, mapState} from "vuex";
 import StoreList from "@/components/StoreList.vue";
 
 export default {
@@ -122,21 +75,13 @@ export default {
     ...mapActions({
       fetchProducts: "filter/fetchProducts",
     }),
+    Types() {
+      return Object.keys(this.categories.type);
+    },
   },
   computed: {
     ...mapState({
-      products: (state) => state.filter.products,
       categories: (state) => state.filter.categories,
-      text: (state) => state.filter.text,
-    }),
-    ...mapGetters({
-      searchProducts: "filter/searchProducts",
-      disableComfort: "filter/disableComfort",
-      disableAncient: "filter/disableAncient",
-      disableSpecial: "filter/disableSpecial",
-      disableClassy: "filter/disableClassy",
-      disableSassy: "filter/disableSassy",
-      disableSunny: "filter/disableSunny",
     }),
   },
 

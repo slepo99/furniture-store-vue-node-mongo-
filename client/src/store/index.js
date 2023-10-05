@@ -1,10 +1,10 @@
 import { createStore } from 'vuex'
-import { cartModule } from './cartModule'
-import { headerModule } from './headerModule'
-import { filtersModule } from './filterModule'
-import { authModule } from './authModule'
-import { registrationModule } from './registrationModule'
-import { orderModule } from './orderModule'
+import { cartModule } from './modules/cartModule'
+import { headerModule } from './modules/headerModule'
+import { filtersModule } from './modules/filterModule'
+import { authModule } from './modules/authModule'
+import { registrationModule } from './modules/registrationModule'
+import { orderModule } from './modules/orderModule'
 import createPersistedState from "vuex-persistedstate";
 
 export default createStore({

@@ -50,19 +50,6 @@ export const cartModule = {
     deleteProduct(state, index) {
       return state.cartProducts.splice(index, 1);
     },
-    // isTokenExists() {
-    //   let storage;
-    //   for (var i = 0; i < localStorage.length; i++) {
-    //     storage = JSON.parse(localStorage.getItem(localStorage.key(i)));
-    //   }
-    //   if (storage.auth.credentials.token) {
-    //     this.isLoggedIn;
-    //     console.log(this.isLoggedIn);
-    //   } else {
-    //     this.isLoggedIn = true;
-    //     console.log(this.isLoggedIn);
-    //   }
-    // },
   },
 
   namespaced: true,
